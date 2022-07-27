@@ -1,0 +1,41 @@
+body
+{
+  /* background: linear-gradient(217deg ,rgb(46, 1, 61) , rgb(0, 0, 64)); */
+  background-image: url("../media/home-bg.jpg");
+  background-size: cover;
+  height: 100%;
+}
+
+div
+{
+   position: absolute;
+   top: calc(50% - 100px);
+   left: calc(50% - 250px);
+   width: 500px;
+   height: 200px;
+}
+.ButtonPanel button
+{
+   position: absolute;
+   width: 45%;
+   height: 100%;
+   font-size: larger;
+   font-family:fantasy;
+   font-weight: 800;
+   border-radius: 10px;
+   color: white;
+   border: 3px solid rgb(0, 255, 221);
+   background-color: rgba(48, 6, 88, 0.37);
+   box-shadow: 0px 0px 10px 1px black;
+}
+
+.ButtonPanel button:nth-child(1)
+{
+   left: 0%;
+   font-size: 100px;
+   font-weight: 100px;
+}
+.ButtonPanel button:nth-child(2)
+{
+   right: 0%;
+}
