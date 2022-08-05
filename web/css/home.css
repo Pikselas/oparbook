@@ -38,3 +38,30 @@ body
    position: relative;
    top: 25px;
 }
+
+
+
+.ButtonPanel .AnimatedButton:nth-child(1) .buttonImg:hover
+{
+   animation: shift 1s 1 ease-in-out;
+}
+
+.ButtonPanel .AnimatedButton:nth-child(2) .buttonImg:hover
+{
+   animation: tlit 1s 1 ease-in-out;
+}
+
+@keyframes tlit
+{
+   0% { rotate: 0deg; }
+   25% {rotate: 10deg; }
+   50% {rotate: -10deg;}
+}
+
+@keyframes shift
+{
+   0% {left: 0px;}
+   25% {left: -10px;}
+   50% {left: 10px;}
+   100% {left: 0px;}
+}
