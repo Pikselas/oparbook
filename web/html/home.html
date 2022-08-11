@@ -15,8 +15,22 @@
         <div class="AnimatedButton RotatingBorder">
             <img class="buttonImg" src="../media/add.png"/>
         </div>
-        <div class="AnimatedButton RotatingBorder Inverse">
+        <div id="FileBrowser" class="AnimatedButton RotatingBorder Inverse">
             <img class="buttonImg" src="../media/folder.png"/>
+        </div>
+    </div>
+    <div hidden id="FileBrowserWindow" class="FileBrowse">
+        <div class="DirectoryHeader">
+            <img class="UPbutton" src="../media/arrow-up.png">
+            <div class="DirectoryTitle">
+                <span id="DirectoryTitle">
+                  Home
+                </span>
+            </div>
+        </div>
+        <div id="DirectoryContents" class="DirectoryContents">
+            <div class="File"> &nbsp; <img src="../media/folder-small.png"> Testproject</div>
+            <div class="File"> &nbsp; <img src="../media/file-small.png"> Testproject.json</div>
         </div>
     </div>
     <script src="../js/home.js"></script>
