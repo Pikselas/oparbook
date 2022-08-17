@@ -76,16 +76,16 @@ body
    width: 500px;
    height: 500px;
    border-radius: 20px;
-   border: 2px solid blue;
-   background: linear-gradient(217deg ,rgba(42, 5, 175, 0.54) , rgba(60, 27, 93, 0.6));
+   border: 2px solid rgb(217, 0, 255);
+   background: linear-gradient(217deg ,rgba(98, 0, 190, 0.399) , rgba(60, 27, 93, 0.6));
    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.92);
-   animation: borderglow 5s infinite linear;
 }
+
 .FileBrowse .DirectoryHeader
 {
    width: calc(100% - 20px);
    height: 40px;
-   background-color: rgba(136, 15, 223, 0.541);
+   background-color: rgba(136, 15, 223, 0.707);
    position: relative;
    top: 10px;
    left: 10px;
@@ -119,6 +119,7 @@ body
    position: absolute;
    left: 10px;
    top: 3px;
+   cursor: pointer;
 }
 .FileBrowse .DirectoryContents
 {
@@ -127,7 +128,7 @@ body
    top: 20px;
    width: calc(100% - 20px);
    height: 85%;
-   background-color: rgba(105, 7, 129, 0.366);
+   background-color: rgba(68, 0, 117, 0.793);
    border-bottom-left-radius: 15px;
    border-bottom-right-radius: 15px;
    overflow-y: scroll;
@@ -138,13 +139,13 @@ body
    width: calc(100% - 2px);
    height: 20px;
    /* text-align: center; */
-   color: rgb(142, 12, 249);
+   color: rgb(150, 185, 255);
    font-family: monospace;
    font-weight: 600;
    font-size: large;
    padding-top: 5px;
    padding-bottom:5px ;
-   background-color: rgba(112, 2, 120, 0.384);
+   background-color: rgba(139, 0, 149, 0.612);
    border-radius: 15px;
    margin-top: 5px;
    /* border-bottom: 1px solid rgb(0, 195, 255); */
