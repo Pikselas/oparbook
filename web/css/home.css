@@ -43,7 +43,7 @@ body
 
 .ButtonPanel .AnimatedButton:nth-child(1) .buttonImg:hover
 {
-   animation: shift 1s 1 ease-in-out;
+   animation: magnify 1s 1 ease-in-out;
 }
 
 .ButtonPanel .AnimatedButton:nth-child(2) .buttonImg:hover
@@ -58,12 +58,12 @@ body
    50% {rotate: -10deg;}
 }
 
-@keyframes shift
+@keyframes magnify
 {
-   0% {left: 0px;}
-   25% {left: -10px;}
-   50% {left: 10px;}
-   100% {left: 0px;}
+   0% {transform: scale(100%);}
+   50% {transform: scale(110%);}
+   75% {transform: scale(85%);}
+   100% {transform: scale(100%);}
 }
 
 .FileBrowse
@@ -148,6 +148,8 @@ body
    background-color: rgba(139, 0, 149, 0.612);
    border-radius: 15px;
    margin-top: 5px;
+   overflow: hidden;
+   text-overflow: ellipsis;
    /* border-bottom: 1px solid rgb(0, 195, 255); */
 }
 .FileBrowse .DirectoryContents .File:hover
