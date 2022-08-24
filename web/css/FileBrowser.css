@@ -112,14 +112,14 @@
 .FileBrowserWindow .MainPanel .ItemSection .Item.Folder::before
 {
     position: relative;
-    content: url("./web/media/folder-small.png");
+    content: url("../media/folder-small.png");
     top: 9px;
     left: 10px;
 }
 .FileBrowserWindow .MainPanel .ItemSection .Item.Item.File::before
 {
     position: relative;
-    content: url("./web/media/file-small.png");
+    content: url("../media/file-small.png");
     top: 9px;
     left: 10px;
 }
