@@ -74,6 +74,11 @@
     filter: brightness(0.5) invert();
     transform: scale(1.1);
 }
+.FileBrowserWindow .MainPanel .Tools .UpDirButton:active
+{
+    transition: all .1s;
+    transform: scale(1);
+}
 .FileBrowserWindow .MainPanel .ItemSection
 {
     width: 95%;

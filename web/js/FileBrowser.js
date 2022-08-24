@@ -62,6 +62,7 @@ class FileBrowserWindow
         let UpDirButton = document.createElement("img");
         UpDirButton.className = "UpDirButton";
         UpDirButton.src = "../media/up-arrow.png";
+        UpDirButton.onclick = ()=>{ this.#FileBrowser.gotoParentDir(); this.fetchItems(); };
         ToolsSection.appendChild(UpDirButton);
         MainPanel.appendChild(ToolsSection);
         this.#Window.appendChild(MainPanel);
@@ -70,20 +71,8 @@ class FileBrowserWindow
         this.#ItemsPanel.className = "ItemSection";
         MainPanel.appendChild(this.#ItemsPanel);
 
-        this.#FileBrowser.getItems().then((items)=>{
-            this.#insertItems(items);
-        });
+        this.fetchItems();
 
-    }
-    #clearItems()
-    {
-        this.#ItemsPanel.innerHTML = '';
-    }
-    #insertItems(items)
-    {
-        items.forEach((arr)=>{
-            this.#ItemsPanel.appendChild(arr[1] ? this.#addFolderPanel(arr[0]) : this.#addFilePanel(arr[0]));
-        });
     }
     #addFilePanel(name)
     {
@@ -103,12 +92,24 @@ class FileBrowserWindow
         panel.children[0].innerHTML = name;
         panel.onclick = ()=>{
             this.#FileBrowser.gotoSubDir(name);
-            this.#FileBrowser.getItems().then((items)=>{
-                this.#clearItems();
-                this.#insertItems(items);
-            });
+            this.fetchItems();
         }
         return panel;
+    }
+    fetchItems()
+    {
+        this.#FileBrowser.getItems().then((items)=>{
+            this.#ItemsPanel.innerHTML = '';
+            let TimeInterVal = 20;
+            items.forEach((arr)=>{
+                let panel = arr[1] ? this.#addFolderPanel(arr[0]) : this.#addFilePanel(arr[0]);
+                panel.style.opacity = 0;
+                panel.style.transform = "scale(0)";
+                this.#ItemsPanel.appendChild(panel);
+                setTimeout(()=>{panel.style.opacity = 1 ; panel.style.transform = "scale(1)";} , TimeInterVal);
+                TimeInterVal += 20;
+            });
+        });
     }
     get Window()
     {
