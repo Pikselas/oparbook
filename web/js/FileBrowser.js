@@ -43,11 +43,13 @@ class FileBrowserWindow
     #FileBrowser;
     #Window;
     #ItemsPanel;
-    constructor(path)
+    #SelectMode;
+    constructor(path , accept = "file" , acceptfunc = (item) => {})
     {
         this.#FileBrowser = new FileBrowserBackendInteracter(path);
         this.#Window = document.createElement("div");
         this.#Window.className = "FileBrowserWindow";
+        this.#SelectMode = {"type" : accept , "func" : acceptfunc};
         
         let RotatingSection = document.createElement("div");
         RotatingSection.className = "Rotor";
@@ -64,6 +66,15 @@ class FileBrowserWindow
         UpDirButton.src = "../media/up-arrow.png";
         UpDirButton.onclick = ()=>{ this.#FileBrowser.gotoParentDir(); this.fetchItems(); };
         ToolsSection.appendChild(UpDirButton);
+        if(accept == "dir")
+        {
+            let SelectButton = document.createElement("img");
+            SelectButton.src = "../media/check-mark-small.png";
+            SelectButton.className = "SelectDirButton";
+            SelectButton.onclick = () => { acceptfunc(this.#FileBrowser.CurrentDirPath); };
+            ToolsSection.appendChild(document.createTextNode("&nbsp"));
+            ToolsSection.appendChild(SelectButton);
+        }
         MainPanel.appendChild(ToolsSection);
         this.#Window.appendChild(MainPanel);
 
@@ -81,6 +92,10 @@ class FileBrowserWindow
         panel.className = "Item File";
         panel.appendChild(document.createElement("div"));
         panel.children[0].innerHTML = name;
+        if(this.#SelectMode["type"] == "file")
+        {
+            panel.onclick = () =>{this.#SelectMode["func"](this.#FileBrowser.CurrentDirPath + '/' + name)};
+        }
         return panel
     }
     #addFolderPanel(name)
