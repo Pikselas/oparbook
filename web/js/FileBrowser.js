@@ -14,7 +14,7 @@ class FileBrowserBackendInteracter
     }
     async getItems()
     {
-        let res = await fetch(this.#ServerPath + this.#CurrentPath + "//");
+        let res = await fetch(this.#ServerPath + this.#CurrentPath + "/");
         return await res.json();
     }
     gotoSubDir(subdir)
@@ -102,7 +102,7 @@ class FileBrowserWindow
             this.#ItemsPanel.innerHTML = '';
             let TimeInterVal = 20;
             items.forEach((arr)=>{
-                let panel = arr[1] ? this.#addFolderPanel(arr[0]) : this.#addFilePanel(arr[0]);
+                let panel = arr["IsDir"] ? this.#addFolderPanel(arr["Name"]) : this.#addFilePanel(arr["Name"]);
                 panel.style.opacity = 0;
                 panel.style.transform = "scale(0)";
                 this.#ItemsPanel.appendChild(panel);

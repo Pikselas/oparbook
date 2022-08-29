@@ -104,7 +104,7 @@
 }
 .FileBrowserWindow .MainPanel .ItemSection .Item.Folder
 {
-    background: linear-gradient(60deg ,rgb(33, 1, 82) , rgb(155, 0, 222) , rgb(33, 1, 82));
+    background: linear-gradient(60deg ,rgb(33, 1, 82) , rgb(63, 0, 91) , rgb(199, 0, 255));
     background-size: 150% 100%;
     color: #24c6b7;
 }
