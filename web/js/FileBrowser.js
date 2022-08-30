@@ -44,12 +44,12 @@ class FileBrowserWindow
     #Window;
     #ItemsPanel;
     #SelectMode;
-    constructor(path , accept = "file" , acceptfunc = (item) => {})
+    constructor(path , accept = "file" , acceptfunc = (item) => {} , accepttype = "single")
     {
         this.#FileBrowser = new FileBrowserBackendInteracter(path);
         this.#Window = document.createElement("div");
         this.#Window.className = "FileBrowserWindow";
-        this.#SelectMode = {"type" : accept , "func" : acceptfunc};
+        this.#SelectMode = {"type" : accept , "func" : acceptfunc , "count" : accepttype};
         
         let RotatingSection = document.createElement("div");
         RotatingSection.className = "Rotor";
@@ -62,16 +62,24 @@ class FileBrowserWindow
         let ToolsSection = document.createElement("div");
         ToolsSection.className = "Tools";
         let UpDirButton = document.createElement("img");
-        UpDirButton.className = "UpDirButton";
         UpDirButton.src = "../media/up-arrow.png";
         UpDirButton.onclick = ()=>{ this.#FileBrowser.gotoParentDir(); this.fetchItems(); };
         ToolsSection.appendChild(UpDirButton);
-        if(accept == "dir")
+        if(accept == "dir" || accepttype == "multiple")
         {
             let SelectButton = document.createElement("img");
             SelectButton.src = "../media/check-mark-small.png";
-            SelectButton.className = "SelectDirButton";
-            SelectButton.onclick = () => { acceptfunc(this.#FileBrowser.CurrentDirPath); };
+
+            if(accepttype == "single")
+            {
+              SelectButton.onclick = () => { acceptfunc(this.#FileBrowser.CurrentDirPath); };
+            }
+            else if(accepttype == "multiple")
+            {
+                this.SelectedItems = [];
+                SelectButton.onclick = () => { acceptfunc(this.SelectedItems); };
+            }
+            
             ToolsSection.appendChild(document.createTextNode("&nbsp"));
             ToolsSection.appendChild(SelectButton);
         }
@@ -94,7 +102,12 @@ class FileBrowserWindow
         panel.children[0].innerHTML = name;
         if(this.#SelectMode["type"] == "file")
         {
-            panel.onclick = () =>{this.#SelectMode["func"](this.#FileBrowser.CurrentDirPath + '/' + name)};
+            panel.onclick = () =>{  this.#SelectMode["count"] == "single"
+                                            ? 
+                                    this.#SelectMode["func"](this.#FileBrowser.CurrentDirPath + '/' + name)
+                                            :
+                                    this.SelectedItems.push(this.#FileBrowser.CurrentDirPath + '/' + name)
+                                 };
         }
         return panel
     }
