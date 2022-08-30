@@ -85,7 +85,7 @@ class FileBrowserWindow
         this.fetchItems();
 
     }
-    #addFilePanel(name)
+    #makeFilePanel(name)
     {
         let panel = document.createElement("div");
         panel.title = name;
@@ -98,7 +98,7 @@ class FileBrowserWindow
         }
         return panel
     }
-    #addFolderPanel(name)
+    #makeFolderPanel(name)
     {
         let panel = document.createElement("div");
         panel.title = name;
@@ -117,7 +117,7 @@ class FileBrowserWindow
             this.#ItemsPanel.innerHTML = '';
             let TimeInterVal = 20;
             items.forEach((arr)=>{
-                let panel = arr["IsDir"] ? this.#addFolderPanel(arr["Name"]) : this.#addFilePanel(arr["Name"]);
+                let panel = arr["IsDir"] ? this.#makeFolderPanel(arr["Name"]) : this.#makeFilePanel(arr["Name"]);
                 panel.style.opacity = 0;
                 panel.style.transform = "scale(0)";
                 this.#ItemsPanel.appendChild(panel);
