@@ -80,7 +80,16 @@ class FileBrowserWindow
                 SelectButton.onclick = () => { acceptfunc(this.SelectedItems); };
             }
             
-            ToolsSection.appendChild(document.createTextNode("&nbsp"));
+            if(accept == "dir")
+            {
+                let addButton = document.createElement("img");
+                addButton.src = "../media/plus-small.png";
+                addButton.onclick = () => { this.SelectedItems.push(this.#FileBrowser.CurrentDirPath) };
+                ToolsSection.appendChild(document.createTextNode("\u00A0\u00A0"));
+                ToolsSection.appendChild(addButton);
+            }
+
+            ToolsSection.appendChild(document.createTextNode("\u00A0\u00A0"));
             ToolsSection.appendChild(SelectButton);
         }
         MainPanel.appendChild(ToolsSection);
