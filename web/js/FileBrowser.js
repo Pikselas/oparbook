@@ -36,8 +36,10 @@ class FileBrowserBackendInteracter
 }
 /*
   Creates a filebrowsing window
+  accept = "file" | "dir"
+  acceptfunc = (a function that takes a single paramter (param will be treated as array or single based on acceptype))
+  accepttype = "single" | "multiple"
 */
-
 class FileBrowserWindow
 {
     #FileBrowser;
@@ -70,6 +72,15 @@ class FileBrowserWindow
             let SelectButton = document.createElement("img");
             SelectButton.src = "../media/check-mark-small.png";
 
+            if(accept == "dir")
+            {
+                let addButton = document.createElement("img");
+                addButton.src = "../media/plus-small.png";
+                addButton.onclick = () => { this.SelectedItems.push({"name" : this.#FileBrowser.CurrentDirName , "path" : this.#FileBrowser.CurrentDirPath}) };
+                ToolsSection.appendChild(document.createTextNode("\u00A0\u00A0"));
+                ToolsSection.appendChild(addButton);
+            }
+            
             if(accepttype == "single")
             {
               SelectButton.onclick = () => { acceptfunc(this.#FileBrowser.CurrentDirPath); };
@@ -78,15 +89,33 @@ class FileBrowserWindow
             {
                 this.SelectedItems = [];
                 SelectButton.onclick = () => { acceptfunc(this.SelectedItems); };
-            }
-            
-            if(accept == "dir")
-            {
-                let addButton = document.createElement("img");
-                addButton.src = "../media/plus-small.png";
-                addButton.onclick = () => { this.SelectedItems.push(this.#FileBrowser.CurrentDirPath) };
+                let SelectedContainer = document.createElement("img");
+                SelectedContainer.src ="../media/collection-small.png";
+
+                let SelectedPanel = null;
+
+                SelectedContainer.onclick = () => {
+                    if(SelectedPanel != null)
+                    {
+                       SelectedPanel.parentElement.removeChild(SelectedPanel);
+                       SelectedPanel = null;
+                    }
+                    else
+                    {
+                        SelectedPanel = document.createElement("div");
+                        SelectedPanel.className = "SelectedPanel";
+                        this.SelectedItems.forEach((itm)=>{
+                            let dv = document.createElement("div");
+                            dv.className = "Item";
+                            dv.innerHTML = itm["name"];
+                            SelectedPanel.appendChild(dv);
+                        });
+                        this.#Window.appendChild(SelectedPanel);
+                    }
+                };
+
                 ToolsSection.appendChild(document.createTextNode("\u00A0\u00A0"));
-                ToolsSection.appendChild(addButton);
+                ToolsSection.appendChild(SelectedContainer);
             }
 
             ToolsSection.appendChild(document.createTextNode("\u00A0\u00A0"));
@@ -115,7 +144,7 @@ class FileBrowserWindow
                                             ? 
                                     this.#SelectMode["func"](this.#FileBrowser.CurrentDirPath + '/' + name)
                                             :
-                                    this.SelectedItems.push(this.#FileBrowser.CurrentDirPath + '/' + name)
+                                    this.SelectedItems.push({"name" : name , "path" : this.#FileBrowser.CurrentDirPath + '/' + name})
                                  };
         }
         return panel
