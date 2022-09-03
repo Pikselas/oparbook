@@ -15,11 +15,11 @@ func GetItemsName(res http.ResponseWriter, req *http.Request) {
 		IsDir bool
 	}
 
-	if req.URL.Path == "/path/" {
+	if req.URL.Path == Getitemsnamepath {
 		j, _ := json.Marshal([]PathResultType{{"D:", true}, {"E:", true}})
 		io.WriteString(res, string(j))
 	} else {
-		Path := req.URL.Path[len(string("/path/")):]
+		Path := req.URL.Path[len(Getitemsnamepath):]
 		Items, _ := filepath.Glob(Path + "/*")
 		io.WriteString(res, "[")
 		for indx, it := range Items {
@@ -32,4 +32,9 @@ func GetItemsName(res http.ResponseWriter, req *http.Request) {
 		}
 		io.WriteString(res, "]")
 	}
+}
+
+func GetItem(res http.ResponseWriter, req *http.Request) {
+	Path := req.URL.Path[len(Getitemspath):]
+	http.ServeFile(res, req, Path)
 }

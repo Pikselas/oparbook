@@ -15,6 +15,7 @@ func ForwardRequestTo(f func(res http.ResponseWriter, req *http.Request)) http.H
 }
 
 func main() {
-	http.HandleFunc("/path/", ForwardRequestTo(server.GetItemsName))
+	http.HandleFunc(server.Getitemsnamepath, ForwardRequestTo(server.GetItemsName))
+	http.HandleFunc(server.Getitemspath, ForwardRequestTo(server.GetItem))
 	http.ListenAndServe(":3456", nil)
 }
