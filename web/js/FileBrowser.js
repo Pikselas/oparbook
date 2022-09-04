@@ -72,11 +72,11 @@ class FileBrowserWindow
             let SelectButton = document.createElement("img");
             SelectButton.src = "../media/check-mark-small.png";
 
-            if(accept == "dir")
+            if(accept == "dir" && accepttype == "multiple")
             {
                 let addButton = document.createElement("img");
                 addButton.src = "../media/plus-small.png";
-                addButton.onclick = () => { this.SelectedItems.push({"name" : this.#FileBrowser.CurrentDirName , "path" : this.#FileBrowser.CurrentDirPath}) };
+                addButton.onclick = () => { this.SelectedItems[this.#FileBrowser.CurrentDirPath] = this.#FileBrowser.CurrentDirName };
                 ToolsSection.appendChild(document.createTextNode("\u00A0\u00A0"));
                 ToolsSection.appendChild(addButton);
             }
@@ -87,8 +87,8 @@ class FileBrowserWindow
             }
             else if(accepttype == "multiple")
             {
-                this.SelectedItems = [];
-                SelectButton.onclick = () => { acceptfunc(this.SelectedItems); };
+                this.SelectedItems = {};
+                SelectButton.onclick = () => { acceptfunc(Object.keys(this.SelectedItems)); };
                 let SelectedContainer = document.createElement("img");
                 SelectedContainer.src ="../media/collection-small.png";
 
@@ -104,11 +104,18 @@ class FileBrowserWindow
                     {
                         SelectedPanel = document.createElement("div");
                         SelectedPanel.className = "SelectedPanel";
-                        this.SelectedItems.forEach((itm)=>{
+                        Object.keys(this.SelectedItems).forEach((itm)=>{
                             let dv = document.createElement("div");
                             dv.className = "Item";
-                            dv.innerHTML = itm["name"];
+                            dv.innerHTML = "&nbsp;&nbsp;" + this.SelectedItems[itm];
                             SelectedPanel.appendChild(dv);
+                            let CloseIco = document.createElement("img");
+                            CloseIco.src = "../media/remove.png";
+                            dv.appendChild(CloseIco);
+                            dv.onclick = () => {
+                                delete this.SelectedItems[itm];
+                                setTimeout(()=>{SelectedPanel.removeChild(dv)},10);
+                            }
                         });
                         this.#Window.appendChild(SelectedPanel);
                     }
@@ -144,7 +151,7 @@ class FileBrowserWindow
                                             ? 
                                     this.#SelectMode["func"](this.#FileBrowser.CurrentDirPath + '/' + name)
                                             :
-                                    this.SelectedItems.push({"name" : name , "path" : this.#FileBrowser.CurrentDirPath + '/' + name})
+                                    this.SelectedItems[this.#FileBrowser.CurrentDirPath + '/' + name] = name
                                  };
         }
         return panel

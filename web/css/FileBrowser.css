@@ -162,14 +162,44 @@
 }
 .FileBrowserWindow .SelectedPanel .Item
 {
+    transition: all .5s;
+    cursor:pointer;
     position: relative;
     left: 5px;
     width: 190px;
-    height: 25px;
+    height: 20px;
     margin-top: 2px;
     border-radius: 5px;
     background-color: #0a0434de;
-    color: #7d12ba;
+    color: #1b88ed;
+    font-family: "modern-sans-serif";
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap
+}
+.FileBrowserWindow .SelectedPanel .Item img
+{
+    position: absolute;
+    top: -2px;
+    left: 200px;
+    opacity: 0;
+    transition: all .5s;
+}
+.FileBrowserWindow .SelectedPanel .Item:hover
+{
+    /* font-size: 0px; */
+    text-indent: -500px;
+    background-color: #570478;
+}
+.FileBrowserWindow .SelectedPanel .Item:hover img
+{
+    left: 80px;
+    opacity: 1;
+}
+.FileBrowserWindow .SelectedPanel .Item img:hover
+{
+    filter: invert();
 }
 @keyframes RotatingDoubleBorder
 {
