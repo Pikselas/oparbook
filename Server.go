@@ -17,5 +17,10 @@ func ForwardRequestTo(f func(res http.ResponseWriter, req *http.Request)) http.H
 func main() {
 	http.HandleFunc(server.Getitemsnamepath, ForwardRequestTo(server.GetItemsName))
 	http.HandleFunc(server.Getitemspath, ForwardRequestTo(server.GetItem))
+
+	http.HandleFunc("/favicon.ico", func(res http.ResponseWriter, req *http.Request) {
+		http.ServeFile(res, req, "icon.png")
+	})
+
 	http.ListenAndServe(":3456", nil)
 }
