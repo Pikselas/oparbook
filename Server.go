@@ -6,6 +6,10 @@ import (
 	"server/server"
 )
 
+/*
+	takes a function and returns a function that calls the given function
+	with some global modifications
+*/
 func ForwardRequestTo(f func(res http.ResponseWriter, req *http.Request)) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
 		log.Printf("\nConnection from\n [%s]\nOn\n [%s]", req.RemoteAddr, req.URL)

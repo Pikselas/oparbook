@@ -8,15 +8,24 @@ import (
 	"path/filepath"
 )
 
+/*
+	if no path is provided then returns all the drives/partitions available
+	else returns the contents of that path
+*/
 func GetItemsName(res http.ResponseWriter, req *http.Request) {
 
 	type PathResultType struct {
 		Name  string
 		IsDir bool
 	}
-
 	if req.URL.Path == Getitemsnamepath {
-		j, _ := json.Marshal([]PathResultType{{"D:", true}, {"E:", true}})
+		driveList := make([]PathResultType, 0)
+		for _, drive := range "ABCDEFGHIJKLMNOPQRSTUVWXYZ" {
+			if _, err := os.Stat(string(drive) + "://"); err == nil {
+				driveList = append(driveList, PathResultType{string(drive) + ":", true})
+			}
+		}
+		j, _ := json.Marshal(driveList)
 		io.WriteString(res, string(j))
 	} else {
 		Path := req.URL.Path[len(Getitemsnamepath):]
@@ -34,6 +43,9 @@ func GetItemsName(res http.ResponseWriter, req *http.Request) {
 	}
 }
 
+/*
+	returns data of the file that has been provided
+*/
 func GetItem(res http.ResponseWriter, req *http.Request) {
 	Path := req.URL.Path[len(Getitemspath):]
 	http.ServeFile(res, req, Path)
