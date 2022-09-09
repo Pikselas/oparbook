@@ -14,12 +14,12 @@ class FileBrowserBackendInteracter
     }
     async getItems()
     {
-        let res = await fetch(this.#ServerPath + this.#CurrentPath + "/");
+        let res = await fetch(this.#ServerPath + '/' +  this.#CurrentPath);
         return await res.json();
     }
     gotoSubDir(subdir)
     {
-        this.#CurrentPath += "/" + subdir;
+        this.#CurrentPath == "" ? this.#CurrentPath = subdir : this.#CurrentPath += "/" + subdir;
     }
     gotoParentDir()
     {
