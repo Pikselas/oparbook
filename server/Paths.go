@@ -1,5 +1,5 @@
 package server
 
-const Getitemsnamepath string = "/path/"
-
-const Getitemspath string = "/get/"
+const GetitemsNamePath string = "/path/"
+const GetitemsPath string = "/get/"
+const CreateProjectPath = "/create/"
