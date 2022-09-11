@@ -27,5 +27,9 @@ func main() {
 		http.ServeFile(res, req, "icon.png")
 	})
 
+	http.HandleFunc("/", func(res http.ResponseWriter, req *http.Request) {
+		http.Redirect(res, req, "/get/web/html/home.html", http.StatusMovedPermanently)
+	})
+
 	http.ListenAndServe(":3456", nil)
 }
