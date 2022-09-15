@@ -12,7 +12,7 @@ import (
 */
 func ForwardRequestTo(f func(res http.ResponseWriter, req *http.Request)) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
-		log.Printf("\n\nConnection from\n [%s]\nOn\n [%s]", req.RemoteAddr, req.URL)
+		log.Printf("\nConnection from\n [%s]\nOn\n [%s]\n\n", req.RemoteAddr, req.URL)
 		res.Header().Set("Access-Control-Allow-Origin", "*")
 		f(res, req)
 	}
