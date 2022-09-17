@@ -28,6 +28,7 @@ class ContentPanel
        ACTIVE_DRAG_ITEM = ev.target;
        POS_X = ev.layerX + 15;
        POS_Y = ev.layerY;
+       ev.dataTransfer.setDragImage(new Image(), 0, 0);
     }
 }
 
